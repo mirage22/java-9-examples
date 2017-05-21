@@ -9,8 +9,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class Consumer implements Flow.Subscriber<FirstEvent> {
 
-    private static final int MAX_PROCESS_TIME = 2;
-    private static final int REQUESTED_MESSAGES = 1;
+	private static final int MAX_PROCESS_TIME = 2;
+	private static final int REQUESTED_MESSAGES = 1;
 	private Random random = new Random();
 	private String name;
 	private Flow.Subscription subscription;
@@ -26,7 +26,7 @@ public class Consumer implements Flow.Subscriber<FirstEvent> {
 
 	@Override
 	public void onError(Throwable error) {
-		this.showMessage("An error has ocurred");
+		this.showMessage("Some Error...");
 		error.printStackTrace();
 	}
 
@@ -39,7 +39,7 @@ public class Consumer implements Flow.Subscriber<FirstEvent> {
 
 	@Override
 	public void onNext(FirstEvent eventOne) {
-		this.showMessage("An eventOne has arrived: " + eventOne.getSource() + ": " + eventOne.getDate() + ": "
+		this.showMessage("An Event has arrived: " + eventOne.getSource() + ": " + eventOne.getDate() + ": "
 				+ eventOne.getMessage());
 		this.subscription.request(REQUESTED_MESSAGES);
 		processEvent(eventOne);
