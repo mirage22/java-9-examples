@@ -6,16 +6,16 @@ import java.util.concurrent.SubmissionPublisher;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author Marcus Hirt (@hirt)
  * @author Miro Wengner (@miragemiko)
  */
 public class Producer implements Runnable {
 
+    private Random random = new Random();
     private SubmissionPublisher<FirstEvent> publisher;
     private String name;
     private int events;
 
-    public Producer(int events, SubmissionPublisher<FirstEvent> publisher, String name) {
+    Producer(int events, SubmissionPublisher<FirstEvent> publisher, String name) {
         this.events = events;
         this.publisher = publisher;
         this.name = name;
@@ -24,9 +24,7 @@ public class Producer implements Runnable {
 
     public void run() {
 
-        Random random = new Random();
-
-        for (int i=0 ; i < 1; i++) {
+        for (int i=0 ; i < events; i++) {
             FirstEvent eventOne = new FirstEvent();
             eventOne.setMessage("FirstEvent number "+i);
             eventOne.setSource(this.name);
@@ -34,7 +32,7 @@ public class Producer implements Runnable {
 
             publisher.submit(eventOne);
 
-            int number = random.nextInt(10);
+            int number = random.nextInt(events);
 
             try {
                 TimeUnit.SECONDS.sleep(number);
